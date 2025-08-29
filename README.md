@@ -1,45 +1,53 @@
-# 📖 API & Panel Zarządzania Biblioteką
+# API & Panel Zarządzania Biblioteką
 
-Projekt zrealizowany w ramach zadania rekrutacyjnego dla **The Momentum AI**. Jest to w pełni funkcjonalna, skonteneryzowana aplikacja Django do zarządzania księgozbiorem, składająca się z **API REST** oraz **zaawansowanego panelu administracyjnego** dla personelu biblioteki.
+Aplikacja do zarządzania księgozbiorem, stworzona jako zadanie rekrutacyjne dla **The Momentum AI**. Projekt składa się z backendowego API REST oraz w pełni funkcjonalnego panelu administracyjnego do zarządzania danymi.
 
-![Zrzut ekranu panelu admina](https://github.com/user-attachments/assets/7454d62e-8cd5-46b6-99b5-c9f36ae7a838)
-
----
-
-## ✨ Kluczowe Funkcjonalności
-
-Oprócz spełnienia podstawowych wymagań zadania, projekt został rozbudowany o szereg profesjonalnych funkcji, aby zapewnić jak najlepsze doświadczenie użytkownika (UX) i pokazać znajomość dobrych praktyk:
-
-* **API REST** z pełną obsługą operacji CRUD dla zasobu książek.
-* **W pełni skonteneryzowane środowisko** z Docker i Docker Compose dla łatwego i powtarzalnego uruchamiania.
-* **Profesjonalny Panel Admina** z nowoczesnym motywem (`django-jazzmin`), zapewniający intuicyjny interfejs dla bibliotekarza.
-* **Zaawansowane UX w Panelu:**
-    * Wyszukiwanie i filtrowanie listy książek.
-    * **Wizualne statusy** (dostępna/wypożyczona) dla lepszej czytelności.
-    * **Akcje masowe** do jednoczesnego oznaczania wielu książek jako wypożyczone/zwrócone.
-    * Przyciski akcji (Edytuj/Usuń) w każdym wierszu dla szybszej pracy.
-* **Eksport danych** do formatów CSV, XLS, i innych, prosto z panelu admina.
-* **Walidacja danych** na poziomie modelu, zapewniająca ich integralność (np. format numeru seryjnego).
-* **Bezpieczna konfiguracja** z wykorzystaniem zmiennych środowiskowych (`.env`).
+![Panel Administracyjny](https://github.com/user-attachments/assets/7454d62e-8cd5-46b6-99b5-c9f36ae7a838)
 
 ---
 
-## 🚀 Uruchomienie
+## Główne Funkcje
 
-### Wymagania
+* **API REST:** Pełna obsługa operacji CRUD dla zasobu książek.
+* **Panel Administracyjny:** Rozbudowany interfejs dla personelu, oparty o `django-jazzmin` z następującymi usprawnieniami:
+    * Wyszukiwanie, filtrowanie i sortowanie danych.
+    * Wizualne wskaźniki statusu wypożyczenia.
+    * Akcje masowe (grupowe oznaczanie statusu).
+    * Przyciski akcji (edycja/usuwanie) w każdym wierszu.
+    * Dynamiczne blokowanie pól formularza w zależności od stanu obiektu.
+* **Import/Eksport Danych:** Możliwość eksportu danych do formatów CSV/XLS i importu z plików.
+* **Walidacja Danych:** Reguły walidacyjne na poziomie modelu zapewniające spójność danych (np. 6-cyfrowy format numerów).
+* **Konteneryzacja:** Całość środowiska (aplikacja + baza danych) zarządzana przez Docker Compose.
+* **Bezpieczna Konfiguracja:** Wykorzystanie zmiennych środowiskowych do zarządzania kluczami i danymi dostępowymi.
+
+---
+
+## Stos Technologiczny
+
+* **Backend:** Python, Django, Django REST Framework
+* **Baza Danych:** PostgreSQL
+* **Konteneryzacja:** Docker
+* **Narzędzia Dodatkowe:** `django-jazzmin`, `django-import-export`
+
+---
+
+## Instalacja i Uruchomienie
+
+### Wymagania Wstępne
+
 * Zainstalowany [Git](https://git-scm.com/)
 * Zainstalowany [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
-### Kroki do Uruchomienia
+### Kroki Instalacji
 
-1.  **Sklonuj repozytorium:**
+1.  **Klonowanie Repozytorium:**
     ```bash
     git clone [https://github.com/AntoniZalewski/momentum-library-api.git](https://github.com/AntoniZalewski/momentum-library-api.git)
     cd momentum-library-api
     ```
 
-2.  **Stwórz plik konfiguracyjny `.env`:**
-    *W głównym folderze projektu stwórz plik `.env` i wklej do niego poniższą zawartość:*
+2.  **Konfiguracja Środowiska:**
+    W głównym folderze projektu stwórz plik `.env` na podstawie poniższego szablonu.
     ```env
     # Konfiguracja Bazy Danych
     POSTGRES_DB=momentum_db
@@ -51,35 +59,24 @@ Oprócz spełnienia podstawowych wymagań zadania, projekt został rozbudowany o
     DEBUG=True
     ```
 
-3.  **Zbuduj i uruchom kontenery:**
-    *Ta komenda postawi całe środowisko - aplikację webową oraz bazę danych.*
+3.  **Budowa i Uruchomienie Kontenerów:**
+    Polecenie zbuduje obrazy i uruchomi wszystkie serwisy.
     ```bash
     docker compose up --build
     ```
 
-4.  **Stwórz konto superużytkownika:**
-    *Otwórz **drugi terminal** i wykonaj poniższą komendę, aby stworzyć konto administratora:*
+4.  **Tworzenie Superużytkownika:**
+    W **drugim oknie terminala** wykonaj poniższą komendę, aby stworzyć konto administratora.
     ```bash
     docker compose run --rm web python manage.py createsuperuser
     ```
-    *Postępuj zgodnie z instrukcjami, aby ustawić nazwę, email i hasło.*
-
-5.  **Zaloguj się i zaimportuj dane (Opcjonalnie):**
-    * Wejdź do panelu admina pod adresem **http://localhost:8000/admin/** i zaloguj się.
-    * Przejdź do sekcji **Książki**.
-    * Kliknij zielony przycisk **`IMPORT`** w prawym górnym rogu.
-    * Wybierz z dysku plik `books_to_import.csv`, który znajduje się w folderze projektu.
-    * Przejdź przez kroki importu, a baza danych zostanie zapełniona przykładowymi książkami.
-
-6.  **Gotowe!**
-    * Panel administracyjny jest dostępny pod adresem: 👉 **http://localhost:8000/admin/**
-    * API jest dostępne pod adresem: 👉 **http://localhost:8000/api/**
+    Postępuj zgodnie z instrukcjami, aby ustawić dane logowania.
 
 ---
 
-## 🛠️ Stos Technologiczny
+## Dostęp do Aplikacji
 
-* **Backend:** Python, Django, Django REST Framework
-* **Baza Danych:** PostgreSQL
-* **Konteneryzacja:** Docker
-* **Panel Admina:** Django Admin, `django-jazzmin`, `django-import-export`
+* **Panel Administracyjny:** [http://localhost:8000/admin/](http://localhost:8000/admin/)
+* **Główny punkt API:** [http://localhost:8000/api/](http://localhost:8000/api/)
+
+---
