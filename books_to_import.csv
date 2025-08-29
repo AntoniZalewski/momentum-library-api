@@ -1,0 +1,8 @@
+id,serial_number,title,author,is_borrowed
+1,111222,Diuna,Frank Herbert,False
+2,222333,Problem trzech ciał,Cixin Liu,False
+3,333444,Wiedźmin. Ostatnie życzenie,Andrzej Sapkowski,False
+4,444555,Rok 1984,George Orwell,False
+5,555666,Lalka,Bolesław Prus,False
+6,666777,Solaris,Stanisław Lem,False
+7,777888,Gra Endera,Orson Scott Card,False
