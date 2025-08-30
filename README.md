@@ -44,7 +44,7 @@ Aplikacja do zarządzania księgozbiorem, stworzona jako zadanie rekrutacyjne dl
     Otwórz terminal i sklonuj repozytorium za pomocą poniższej komendy, a następnie przejdź do nowo utworzonego folderu.
 
     ```bash
-    git clone [https://github.com/AntoniZalewski/momentum-library-api.git](https://github.com/AntoniZalewski/momentum-library-api.git)
+    git clone https://github.com/AntoniZalewski/momentum-library-api.git
     cd momentum-library-api
     ```
 
