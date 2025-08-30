@@ -1,6 +1,6 @@
 # API & Panel Zarządzania Biblioteką
 
-Aplikacja do zarządzania księgozbiorem, stworzona jako zadanie rekrutacyjne dla **The Momentum AI**. Projekt składa się z backendowego API REST oraz w pełni funkcjonalnego panelu administracyjnego do zarządzania danymi.
+Aplikacja do zarządzania księgozbiorem, stworzona jako zadanie rekrutacyjne dla The Momentum AI. Projekt składa się z backendowego API REST oraz w pełni funkcjonalnego panelu administracyjnego do zarządzania danymi.
 
 ![Panel Administracyjny](https://github.com/user-attachments/assets/7454d62e-8cd5-46b6-99b5-c9f36ae7a838)
 
@@ -41,13 +41,16 @@ Aplikacja do zarządzania księgozbiorem, stworzona jako zadanie rekrutacyjne dl
 ### Kroki Instalacji
 
 1.  **Klonowanie Repozytorium:**
+    Otwórz terminal i sklonuj repozytorium za pomocą poniższej komendy, a następnie przejdź do nowo utworzonego folderu.
+
     ```bash
     git clone [https://github.com/AntoniZalewski/momentum-library-api.git](https://github.com/AntoniZalewski/momentum-library-api.git)
     cd momentum-library-api
     ```
 
 2.  **Konfiguracja Środowiska:**
-    *W głównym folderze projektu stwórz plik `.env` na podstawie poniższego szablonu.*
+    W głównym folderze projektu stwórz plik `.env` na podstawie poniższego szablonu. Zawiera on dane konfiguracyjne, które nie są śledzone przez Git.
+
     ```env
     # Konfiguracja Bazy Danych
     POSTGRES_DB=momentum_db
@@ -60,25 +63,34 @@ Aplikacja do zarządzania księgozbiorem, stworzona jako zadanie rekrutacyjne dl
     ```
 
 3.  **Budowa i Uruchomienie Kontenerów:**
-    *To polecenie postawi całe środowisko - aplikację webową oraz bazę danych.*
+    To polecenie postawi całe środowisko - aplikację webową oraz bazę danych. Pierwsze uruchomienie może potrwać kilka minut.
+
     ```bash
     docker compose up --build
     ```
-    *(Serwer będzie działał w tym terminalu, zostaw go włączonego).*
+    *Serwer będzie działał w tym terminalu, zostaw go włączonego.*
 
-4.  **Przygotowanie Bazy Danych (w drugim terminalu):**
-    *Otwórz **drugi, nowy terminal**, wejdź do folderu z projektem i wykonaj poniższą komendę, aby stworzyć tabele w bazie danych.*
+4.  **Przygotowanie Bazy Danych:**
+    Otwórz **drugi, nowy terminal**, wejdź do folderu z projektem i wykonaj poniższą komendę, aby stworzyć tabele w bazie danych.
+
     ```bash
     docker compose run --rm web python manage.py migrate
     ```
 
-5.  **Tworzenie Superużytkownika (w drugim terminalu):**
-    *W tym samym drugim terminalu, stwórz konto administratora potrzebne do zalogowania.*
+5.  **Tworzenie Konta Administratora:**
+    W tym samym drugim terminalu stwórz konto potrzebne do zalogowania się w panelu.
+
     ```bash
     docker compose run --rm web python manage.py createsuperuser
     ```
-    *Postępuj zgodnie z instrukcjami, aby ustawić dane logowania.*
+    Postępuj zgodnie z instrukcjami, aby ustawić nazwę użytkownika, email i hasło.
 
-6.  **Gotowe!**
-    * Panel administracyjny jest dostępny pod adresem: 👉 **http://localhost:8000/admin/**
-    * (Opcjonalnie) Możesz teraz zaimportować przykładowe dane za pomocą przycisku `IMPORT` w panelu.
+6.  **Import Przykładowych Danych (Opcjonalnie):**
+    Po zalogowaniu do panelu admina, przejdź do sekcji "Książki". Możesz użyć przycisku `IMPORT`, aby wgrać dane z dołączonego do repozytorium pliku `books_to_import.csv` i od razu zobaczyć aplikację w działaniu.
+
+---
+
+## Dostęp do Aplikacji
+
+* **Panel Administracyjny:** [http://localhost:8000/admin/](http://localhost:8000/admin/)
+* **Główny punkt API:** [http://localhost:8000/api/](http://localhost:8000/api/)
