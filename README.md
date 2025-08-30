@@ -47,7 +47,7 @@ Aplikacja do zarządzania księgozbiorem, stworzona jako zadanie rekrutacyjne dl
     ```
 
 2.  **Konfiguracja Środowiska:**
-    W głównym folderze projektu stwórz plik `.env` na podstawie poniższego szablonu.
+    *W głównym folderze projektu stwórz plik `.env` na podstawie poniższego szablonu.*
     ```env
     # Konfiguracja Bazy Danych
     POSTGRES_DB=momentum_db
@@ -60,23 +60,25 @@ Aplikacja do zarządzania księgozbiorem, stworzona jako zadanie rekrutacyjne dl
     ```
 
 3.  **Budowa i Uruchomienie Kontenerów:**
-    Polecenie zbuduje obrazy i uruchomi wszystkie serwisy.
+    *To polecenie postawi całe środowisko - aplikację webową oraz bazę danych.*
     ```bash
     docker compose up --build
     ```
+    *(Serwer będzie działał w tym terminalu, zostaw go włączonego).*
 
-4.  **Tworzenie Superużytkownika:**
-    W **drugim oknie terminala** wykonaj poniższą komendę, aby stworzyć konto administratora.
+4.  **Przygotowanie Bazy Danych (w drugim terminalu):**
+    *Otwórz **drugi, nowy terminal**, wejdź do folderu z projektem i wykonaj poniższą komendę, aby stworzyć tabele w bazie danych.*
+    ```bash
+    docker compose run --rm web python manage.py migrate
+    ```
+
+5.  **Tworzenie Superużytkownika (w drugim terminalu):**
+    *W tym samym drugim terminalu, stwórz konto administratora potrzebne do zalogowania.*
     ```bash
     docker compose run --rm web python manage.py createsuperuser
     ```
-    Postępuj zgodnie z instrukcjami, aby ustawić dane logowania.
+    *Postępuj zgodnie z instrukcjami, aby ustawić dane logowania.*
 
----
-
-## Dostęp do Aplikacji
-
-* **Panel Administracyjny:** [http://localhost:8000/admin/](http://localhost:8000/admin/)
-* **Główny punkt API:** [http://localhost:8000/api/](http://localhost:8000/api/)
-
----
+6.  **Gotowe!**
+    * Panel administracyjny jest dostępny pod adresem: 👉 **http://localhost:8000/admin/**
+    * (Opcjonalnie) Możesz teraz zaimportować przykładowe dane za pomocą przycisku `IMPORT` w panelu.
