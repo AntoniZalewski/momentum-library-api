@@ -20,17 +20,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-uk$2@joa0uisaqh6vzm5vv$3t=js7$tjtg1^_x0m5to7bpa5l3'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'library',
     'rest_framework',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +129,58 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Konfiguracja Django Jazzmin
+JAZZMIN_SETTINGS = {
+    
+    # Tytuł na stronie logowania i w nagłówku panelu
+    "site_title": "Administracja Biblioteki",
+    # Tekst w nagłówku
+    "site_header": "Momentum Library",
+    # Logo (można dodać, jeśli się ma)
+    "site_brand": "Biblioteka",
+    # Ukrywam domyślne modele User i Group, bo bibliotekarz ich nie potrzebuje.
+    "hide_models": ["auth.User", "auth.Group"],
+
+    # Zmieniam kolejność aplikacji w menu, żeby nasza była na górze.
+    "order_with_respect_to": ["library", "auth"],
+
+    # Dodaję ikonki z FontAwesome do menu bocznego dla "efektu wow".
+    "icons": {
+        "library": "fas fa-book-reader",
+        "library.Book": "fas fa-book",
+    },
+    # Tekst na stronie logowania
+    "welcome_sign": "Witaj w panelu zarządzania biblioteką",
+    # Prawa autorskie w stopce
+    "copyright": "Momentum Library Ltd.",
+    # Ulepszenia UI
+    "ui_tweaks": {
+        "navbar_small_text": False,
+        "footer_small_text": False,
+        "body_small_text": True,
+        "brand_small_text": False,
+        "brand_colour": "navbar-dark",
+        "accent": "accent-primary",
+        "navbar": "navbar-dark",
+        "no_navbar_border": False,
+        "sidebar": "sidebar-dark-primary",
+        "sidebar_nav_small_text": False,
+        "sidebar_disable_expand": False,
+        "sidebar_nav_child_indent": False,
+        "sidebar_nav_compact_style": False,
+        "sidebar_nav_legacy_style": False,
+        "sidebar_nav_flat_style": False,
+        "theme": "darkly",
+        "actions_sticky_top": True,
+        "button_classes": {
+            "primary": "btn-primary",
+            "secondary": "btn-secondary",
+            "info": "btn-info",
+            "warning": "btn-warning",
+            "danger": "btn-danger",
+            "success": "btn-success"
+        }
+    }
+    
+}

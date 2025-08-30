@@ -14,8 +14,8 @@ COPY requirements.txt .
 # Instaluję wszystko, co jest w requirements.txt.
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Przechodzę do podfolderu na kod źródłowy.
-WORKDIR /app/src
+# Na końcu kopiuję wszystko z bieżącego folderu do kontenera.
+COPY . .
 
-# Na końcu kopiuję cały mój kod z lokalnego folderu 'src'.
-COPY ./src .
+# Ustawiam katalog roboczy na folder z kodem Django.
+WORKDIR /app/src
